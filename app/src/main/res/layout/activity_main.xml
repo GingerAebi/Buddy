@@ -8,27 +8,18 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="동동"
-        android:id="@+id/button_main_dongdong"
+        android:text="튜토리얼"
+        android:id="@+id/button_main_tutorial"
+        android:layout_alignBottom="@+id/button_main_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="로그인"
+        android:id="@+id/button_main_login"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="149dp" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="손 흔들기"
-        android:id="@+id/button_main_shakeHand"
-        android:layout_below="@+id/button_main_dongdong"
-        android:layout_alignLeft="@+id/button_main_dongdong"
-        android:layout_alignStart="@+id/button_main_dongdong" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="튜토리얼"
-        android:id="@+id/button_main_tutorial"
-        android:layout_alignBottom="@+id/button_main_dongdong"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="55dp" />
 </RelativeLayout>

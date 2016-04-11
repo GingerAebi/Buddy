@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import kr.co.crescentcorp.buddytest.tutorial.StartActivity;
+import kr.co.crescentcorp.buddytest.user.CreateUserActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,18 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.context = this;
 
-        findViewById(R.id.button_main_dongdong).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_main_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DongDongActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.button_main_shakeHand).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ShakeHandActivity.class);
+                Intent intent = new Intent(context, CreateUserActivity.class);
                 startActivity(intent);
             }
         });
