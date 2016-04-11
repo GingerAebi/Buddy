@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.co.crescentcorp.buddytest.MainActivity">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="동동"
+        android:id="@+id/button_main_dongdong"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="손 흔들기"
+        android:id="@+id/button_main_shakeHand"
+        android:layout_below="@+id/button_main_dongdong"
+        android:layout_alignLeft="@+id/button_main_dongdong"
+        android:layout_alignStart="@+id/button_main_dongdong" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="튜토리얼"
+        android:id="@+id/button_main_tutorial"
+        android:layout_alignBottom="@+id/button_main_dongdong"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp" />
+</RelativeLayout>
