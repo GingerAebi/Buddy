@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/buddyThemeColor"
+    tools:context=".login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView_login_logo"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo_login" />
+
+    <EditText
+        android:id="@+id/editText_login_id"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/imageView_login_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint=" 电子邮件"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:theme="@style/Theme.Buddy.EditText" />
+
+    <EditText
+        android:id="@+id/editText_login_password"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/editText_login_id"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint=" 密码"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:theme="@style/Theme.Buddy.EditText" />
+
+    <TextView
+        android:id="@+id/textView_login_createUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_login_password"
+        android:layout_alignStart="@+id/editText_login_password"
+        android:layout_below="@+id/editText_login_password"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="10dp"
+        android:text="注册"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView_login_forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText_login_password"
+        android:layout_alignRight="@+id/editText_login_password"
+        android:layout_alignTop="@+id/textView_login_createUser"
+        android:layout_marginRight="80dp"
+        android:text="忘记密码？"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButton_login"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/textView_login_createUser"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/btn_login"
+
+        />
+
+    <ImageView
+        android:id="@+id/imageView_login_backline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="130dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:src="@drawable/l_commingsoon" />
+
+    <TextView
+        android:id="@+id/textView_login_commingsoon"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="125dp"
+        android:background="@color/buddyThemeColor"
+        android:gravity="center"
+        android:text="Comming Soon"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView_login_line"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/editText_login_password"
+        android:layout_alignStart="@+id/editText_login_password"
+        android:layout_alignTop="@+id/imageView_login_backline"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/l_line_api_btn" />
+
+    <ImageView
+        android:id="@+id/imageView_login_weibo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/imageView_login_line"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/l_weibo_api_btn" />
+
+    <ImageView
+        android:id="@+id/imageView_login_wechat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/editText_login_password"
+        android:layout_alignRight="@+id/editText_login_password"
+        android:layout_alignTop="@+id/imageView_login_line"
+        android:src="@drawable/l_wechat_api_btn" />
+
+</RelativeLayout>
