@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import kr.co.crescentcorp.buddytest.tutorial.StartActivity;
-import kr.co.crescentcorp.buddytest.user.CreateUserActivity;
+import kr.co.crescentcorp.buddytest.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_main_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CreateUserActivity.class);
+                Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);
             }
         });

@@ -19,7 +19,7 @@
         <activity android:name=".tutorial.TutorialActivity" />
         <activity android:name=".tutorial.StartActivity" />
         <activity android:name=".login.LoginTest" />
-        <activity android:name=".user.CreateUserActivity"></activity>
+        <activity android:name=".login.LoginActivity"></activity>
     </application>
 
 </manifest>
