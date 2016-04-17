@@ -36,15 +36,14 @@ public class Tutorail3Fragment extends Fragment {
 
         iv_backgroud = (ImageView) rootView.findViewById(R.id.imageView_intro3);
         iv_backgroud.setImageBitmap(background);
-//        ((BitmapDrawable)iv_backgroud.getDrawable()).getBitmap().recycle();
 
         iv_gwanghwamoon = (ImageView) rootView.findViewById(R.id.imageView_gwanghwamoon);
         iv_gwanghwamoon.setImageBitmap(gwanghwamoon);
-//        ((BitmapDrawable)iv_gwanghwamoon.getDrawable()).getBitmap().recycle();
 
 
         dongdong = AnimationUtils.loadAnimation(getContext(), R.anim.dongdong);
-        iv_gwanghwamoon.startAnimation(dongdong);
+        // animation delete
+//        iv_gwanghwamoon.startAnimation(dongdong);
 
         return rootView;
 

@@ -84,8 +84,8 @@ public class Tutorail4Fragment extends Fragment {
             }
 
         });
-
-        imageView.startAnimation(handAnimation);
+        // animation delete
+        //imageView.startAnimation(handAnimation);
 
         return rootView;
 

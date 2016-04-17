@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tutorial.Tutorail1Fragment">
+    tools:context=".tutorial.Tutorail2Fragment"
+    android:background="@drawable/t2_bg">
 
 
     <ImageView

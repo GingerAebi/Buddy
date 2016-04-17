@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/buddyThemeColor"
+    tools:context=".register.Register1Activity">
+
+    <ImageView
+        android:id="@+id/imageView_register_logo"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo_login" />
+
+    <EditText
+        android:id="@+id/editText_register_lastName"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/imageView_register_logo"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:hint="性（中文）"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/hintColor"
+        android:theme="@style/Theme.Buddy.EditText" />
+
+    <EditText
+        android:id="@+id/editText_register_firstName"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editText_register_lastName"
+        android:layout_marginRight="40dp"
+        android:hint="名字（中文）"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/hintColor"
+        android:theme="@style/Theme.Buddy.EditText" />
+
+    <EditText
+        android:id="@+id/editText_register_email"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/editText_register_lastName"
+        android:layout_alignStart="@+id/editText_register_lastName"
+        android:layout_below="@+id/editText_register_lastName"
+        android:hint=" 电子邮件"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/hintColor"
+        android:theme="@style/Theme.Buddy.EditText"
+        android:layout_alignRight="@+id/editText_register_firstName"
+        android:layout_alignEnd="@+id/editText_register_firstName" />
+
+    <EditText
+        android:id="@+id/editText_register_pw"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/editText_register_email"
+        android:layout_alignStart="@+id/editText_register_email"
+        android:layout_below="@+id/editText_register_email"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/hintColor"
+        android:theme="@style/Theme.Buddy.EditText"
+        android:layout_alignRight="@+id/editText_register_email"
+        android:layout_alignEnd="@+id/editText_register_email" />
+
+    <EditText
+        android:id="@+id/editText_register_pwAgain"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/editText_register_pw"
+        android:layout_alignStart="@+id/editText_register_pw"
+        android:layout_below="@+id/editText_register_pw"
+        android:hint=" 确认密码"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/hintColor"
+        android:theme="@style/Theme.Buddy.EditText"
+        android:layout_alignRight="@+id/editText_register_pw"
+        android:layout_alignEnd="@+id/editText_register_pw" />
+
+    <ImageView
+        android:id="@+id/imageView_register_check_lastName"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/editText_register_lastName"
+        android:layout_alignEnd="@+id/editText_register_lastName"
+        android:layout_alignRight="@+id/editText_register_lastName"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/r1_check"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imageView_register_check_id"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/editText_register_email"
+        android:layout_alignEnd="@+id/editText_register_email"
+        android:layout_alignRight="@+id/editText_register_email"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/r1_check"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imageView_register_check_pw"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/editText_register_pw"
+        android:layout_alignEnd="@+id/editText_register_pw"
+        android:layout_alignRight="@+id/editText_register_pw"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/r1_check"
+        android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/imageView_register_check_pwAgain"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/editText_register_pwAgain"
+        android:layout_alignEnd="@+id/editText_register_pwAgain"
+        android:layout_alignRight="@+id/editText_register_pwAgain"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/r1_check"
+        android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/imageView_register_check_firstName"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/editText_register_firstName"
+        android:layout_alignEnd="@+id/editText_register_firstName"
+        android:layout_alignRight="@+id/editText_register_firstName"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/r1_check"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/imageButton_register_next"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_register"
+        android:layout_below="@+id/editText_register_pwAgain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>

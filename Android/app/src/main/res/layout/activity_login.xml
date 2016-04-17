@@ -16,7 +16,7 @@
         android:src="@drawable/logo_login" />
 
     <EditText
-        android:id="@+id/editText_login_id"
+        android:id="@+id/editText_login_email"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@+id/imageView_login_logo"
@@ -24,20 +24,20 @@
         android:layout_marginTop="50dp"
         android:hint=" 电子邮件"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
+        android:textColorHint="@color/hintColor"
         android:theme="@style/Theme.Buddy.EditText" />
 
     <EditText
         android:id="@+id/editText_login_password"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/editText_login_id"
+        android:layout_below="@+id/editText_login_email"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint=" 密码"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
+        android:textColorHint="@color/hintColor"
         android:theme="@style/Theme.Buddy.EditText" />
 
     <TextView
