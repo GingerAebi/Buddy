@@ -76,7 +76,7 @@
         android:layout_alignLeft="@+id/editText_register_pw"
         android:layout_alignStart="@+id/editText_register_pw"
         android:layout_below="@+id/editText_register_pw"
-        android:hint=" 确认密码"
+        android:hint="确认密码"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/hintColor"
