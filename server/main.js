@@ -1,11 +1,13 @@
 var express = require('express');
 var app = express();
 var mysql = require('mysql');
-var bodyparser = require('body-parser').urlencoded({extended: true});
+var morgan = require('morgan');
+var bodyParser = require('body-parser').urlencoded({extended: true});
+
+app.use(morgan('combined'));
+app.use(bodyParser);
 
 app.set('port', process.env.port || 3000);
-
-app.use(bodyparser);
 
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -22,17 +24,34 @@ connection.connect(function (err) {
     }
 });
 
-app.post('/user/create', function(req, res) {
-    var userInfo = req.body;
-    console.log(userInfo);
+app.post('/test',function(req, res){
+	console.log("test in");
+	res.send("test");
+	console.log(req.body.test);
 });
 
-app.post('/login', function(req, res) {
-    var userId = req.body.userId;
+
+app.post('/user/create', function(req, res) {
+	var userInfo = [
+	   	req.body.email,
+   		req.body.password
+	]
+	connection.query('INSERT INTO user(email, password) VALUES(?, ?)',userInfo, function(err, result){
+		if(err) {
+			console.log(err);
+		}else {
+			res.send(result);
+		}
+		
+	});
+});
+
+app.post('/user/login', function(req, res) {
+    var email = req.body.email;
     var password = req.body.password;
 });
 
-app.get('/findBuddy', function (req, res) {
+app.get('/buddy/findBuddy', function (req, res) {
     var favorites = req.query.favorites;
     findBuddy(favorites, res);
 });

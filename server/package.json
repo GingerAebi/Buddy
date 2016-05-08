@@ -11,6 +11,8 @@
   "dependencies": {
     "body-parser": "^1.15.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "morgan": "^1.7.0"
+  },
   "description": ""
 }
