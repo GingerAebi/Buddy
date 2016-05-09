@@ -17,13 +17,16 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE SCHEMA IF NOT EXISTS `crescent` ;
 USE `crescent` ;
 
+DROP TABLE IF EXISTS `crescent`.`client`;
+DROP TABLE IF EXISTS `crescent`.`buddy`;
+DROP TABLE IF EXISTS `crescent`.`user`;
 -- -----------------------------------------------------
 -- Table `crescent`.`client`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `crescent`.`client` (
   `_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `userId` INT NULL,
+  `userId` INT NOT NULL,
   `age` INT NULL,
   `gender` TINYTEXT NULL,
   PRIMARY KEY (`_id`))
@@ -36,7 +39,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `crescent`.`buddy` (
   `_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `userId` INT NULL,
+  `userId` INT NOT NULL,
   `food` INT NULL DEFAULT 1,
   `navigate` INT NULL DEFAULT 1,
   `beauty` INT NULL DEFAULT 1,
@@ -53,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `crescent`.`user`(
 	`_id` INT NOT NULL AUTO_INCREMENT,
 	`email` TEXT NOT NULL, 
 	`password` TEXT NOT NULL,
+	`userType` INT NOT NULL,
 	PRIMARY KEY (`_id`))
 ENGINE = InnoDB;
  

@@ -34,21 +34,36 @@ app.post('/test',function(req, res){
 app.post('/user/create', function(req, res) {
 	var userInfo = [
 	   	req.body.email,
-   		req.body.password
+   		req.body.password,
+		req.body.userType
 	]
-	connection.query('INSERT INTO user(email, password) VALUES(?, ?)',userInfo, function(err, result){
+	connection.query('INSERT INTO user(email, password, userType) VALUES(?, ?, ?)',userInfo, function(err, result){
 		if(err) {
 			console.log(err);
 		}else {
-			res.send(result);
+			res.send("Create User Success");
 		}
 		
 	});
 });
-
 app.post('/user/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
+	connection.query('SELECT * FROM user WHERE email = ?', email, function(err, result){
+	//err don't catch TYPE ERROR ? 
+		if(err) {
+			console.log(err);
+		} else if(result.length < 1) {
+			res.send("NO EMAIL EXIST");
+		} else {
+			if (password === result[0].password) {
+				res.send("login Success");
+			}else {
+				res.send("Wrong Password");
+			}
+
+		}
+	});		
 });
 
 app.get('/buddy/findBuddy', function (req, res) {
