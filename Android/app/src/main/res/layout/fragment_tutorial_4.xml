@@ -4,23 +4,21 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tutorial.Tutorail4Fragment">
+    tools:context=".tutorial.Tutorial4Fragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_tutorial4_background"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/t4_fill_circle" />
+        android:layout_centerInParent="true" />
 
     <ImageView
-        android:id="@+id/imageView_hand1"
+        android:id="@+id/imageView_tutorial4_hand"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="-100dp"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/t4_hand_1" />
+        android:layout_marginTop="150dp" />
 
     <TextView
         android:layout_width="wrap_content"

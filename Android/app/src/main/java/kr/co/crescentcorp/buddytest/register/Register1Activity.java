@@ -1,30 +1,62 @@
 package kr.co.crescentcorp.buddytest.register;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import kr.co.crescentcorp.buddytest.R;
+import kr.co.crescentcorp.buddytest.login.LoginActivity;
+import kr.co.crescentcorp.buddytest.netowrk.Network;
+import kr.co.crescentcorp.buddytest.netowrk.RegisterProxy;
+import kr.co.crescentcorp.buddytest.vo.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Register1Activity extends AppCompatActivity {
 
+    @BindView(R.id.editText_register_email)
+    EditText et_email;
+    @BindView(R.id.editText_register_lastName)
+    EditText et_lastName;
+    @BindView(R.id.editText_register_firstName)
+    EditText et_firstName;
+    @BindView(R.id.editText_register_pw)
+    EditText et_password1;
+    @BindView(R.id.editText_register_pwAgain)
+    EditText et_password2;
 
-    private EditText et_email;
-    private EditText et_lastName;
-    private EditText et_firstName;
-    private EditText et_password1;
-    private EditText et_password2;
+    @BindView(R.id.imageView_register_check_id)
+    ImageView iv_email_checker;
+    @BindView(R.id.imageView_register_check_lastName)
+    ImageView iv_lastName_checker;
+    @BindView(R.id.imageView_register_check_firstName)
+    ImageView iv_firstName_checker;
+    @BindView(R.id.imageView_register_check_pw)
+    ImageView iv_password1_checker;
+    @BindView(R.id.imageView_register_check_pwAgain)
+    ImageView iv_password2_checker;
 
-    private ImageView iv_email_checker;
-    private ImageView iv_lastName_checker;
-    private ImageView iv_firstName_checker;
-    private ImageView iv_password1_checker;
-    private ImageView iv_password2_checker;
+    @BindView(R.id.imageButton_register_next)
+    ImageButton btn_register_next;
+
+    @BindView(R.id.textView_register_info)
+    TextView tv_info;
 
     private RegisterController registerController;
 
@@ -32,28 +64,12 @@ public class Register1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
-
-        initViews();
-        addWatcher();
-
-    }
-
-    private void initViews() {
-        et_email = (EditText) findViewById(R.id.editText_register_email);
-        et_lastName = (EditText) findViewById(R.id.editText_register_lastName);
-        et_firstName = (EditText) findViewById(R.id.editText_register_firstName);
-        et_password1 = (EditText) findViewById(R.id.editText_register_pw);
-        et_password2 = (EditText) findViewById(R.id.editText_register_pwAgain);
-
-        iv_email_checker = (ImageView) findViewById(R.id.imageView_register_check_id);
-        iv_lastName_checker = (ImageView) findViewById(R.id.imageView_register_check_lastName);
-        iv_firstName_checker = (ImageView) findViewById(R.id.imageView_register_check_firstName);
-        iv_password1_checker = (ImageView) findViewById(R.id.imageView_register_check_pw);
-        iv_password2_checker = (ImageView) findViewById(R.id.imageView_register_check_pwAgain);
+        ButterKnife.bind(this);
+        validateUser();
 
     }
 
-    private void addWatcher() {
+    private void validateUser() {
 
         registerController = new RegisterController();
 
@@ -65,15 +81,18 @@ public class Register1Activity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
                 if (registerController.isEmail(s.toString())) {
                     iv_email_checker.setVisibility(View.VISIBLE);
                 } else {
                     iv_email_checker.setVisibility(View.INVISIBLE);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                buttonCheck();
             }
         });
         et_lastName.addTextChangedListener(new TextWatcher() {
@@ -93,7 +112,7 @@ public class Register1Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                buttonCheck();
             }
         });
         et_firstName.addTextChangedListener(new TextWatcher() {
@@ -113,7 +132,7 @@ public class Register1Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                buttonCheck();
             }
         });
 
@@ -127,7 +146,7 @@ public class Register1Activity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String password1 = et_password1.getText().toString();
                 String password2 = et_password2.getText().toString();
-                if (registerController.isPassword(password1,password2)) {
+                if (registerController.isPassword(password1, password2)) {
                     iv_password1_checker.setVisibility(View.VISIBLE);
                     iv_password2_checker.setVisibility(View.VISIBLE);
                 } else {
@@ -138,12 +157,61 @@ public class Register1Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                buttonCheck();
             }
         };
         et_password1.addTextChangedListener(passWordWatcher);
         et_password2.addTextChangedListener(passWordWatcher);
 
+    }
+
+    private void buttonCheck() {
+        if (registerController.checkAll()) {
+            btn_register_next.setClickable(true);
+        } else {
+            btn_register_next.setClickable(false);
+        }
+    }
+
+    @OnClick(R.id.imageButton_register_next)
+    void register() {
+        Network network = new Network();
+        try {
+            RegisterProxy registerProxy = network.getRegisterProxy();
+            registerProxy.registerUser(getUser(), new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()) {
+                        Log.i("RegisterProxy", "Network Success And " + response.body());
+                        handleResponse(response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                }
+            });
+        } catch (Exception e) {
+            Log.e("Register1Activity", "Register Failed by \n" + e);
+        }
+    }
+
+    @NonNull
+    private User getUser() {
+        return new User(et_firstName.getText().toString(), et_lastName.getText().toString(), et_email.getText().toString(), PasswordMaker.make(et_password1.getText().toString()));
+    }
+
+    private void handleResponse(String response) {
+        Log.i("TEST", "RESPONSE : " + response);
+        if (response.equals("Email Already EXIST")) {
+            tv_info.setText("!!! 이미 존재하는 이메일 입니다 !!!");
+        } else if (response.equals("Create User Success")) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            tv_info.setText("알 수 없는 응답");
+        }
     }
 
 }
