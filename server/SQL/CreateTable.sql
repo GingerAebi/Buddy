@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `crescent`.`client` (
   `userId` INT NOT NULL,
   `age` INT NULL,
   `gender` TINYTEXT NULL,
+  `birthday` DATE NULL,
   PRIMARY KEY (`_id`))
 ENGINE = InnoDB;
 
@@ -54,9 +55,12 @@ ENGINE = InnoDB;
 -- ----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `crescent`.`user`(
 	`_id` INT NOT NULL AUTO_INCREMENT,
+	`firstName` TINYTEXT NOT NULL,
+	`lastName` TINYTEXT NOT NULL,
 	`email` TEXT NOT NULL, 
 	`password` TEXT NOT NULL,
 	`userType` INT NOT NULL,
+	`picUrl` TEXT NULL,
 	PRIMARY KEY (`_id`))
 ENGINE = InnoDB;
  
