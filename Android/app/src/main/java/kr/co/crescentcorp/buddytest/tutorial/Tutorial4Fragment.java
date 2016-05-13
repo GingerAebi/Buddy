@@ -13,13 +13,22 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import kr.co.crescentcorp.buddytest.R;
 
 
-public class Tutorail4Fragment extends Fragment {
+public class Tutorial4Fragment extends Fragment {
 
     private Animation handAnimation;
-    private ImageView imageView;
+
+    @BindView(R.id.imageView_tutorial4_hand)
+    ImageView iv_hand;
+
+    @BindView(R.id.imageView_tutorial4_background)
+    ImageView iv_background;
 
     private int animationIdx = 1;
 
@@ -27,7 +36,22 @@ public class Tutorail4Fragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setImages();
+        //setImages();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_tutorial_4, container, false);
+        ButterKnife.bind(this, rootView);
+        Picasso.with(getActivity()).load(R.drawable.t4_hand_1).into(iv_hand);
+        Picasso.with(getActivity()).load(R.drawable.t4_fill_circle).into(iv_background);
+
+        // animation delete
+        //setAnimation();
+        //imageView.startAnimation(handAnimation);
+
+        return rootView;
+
     }
 
     private void setImages() {
@@ -39,12 +63,7 @@ public class Tutorail4Fragment extends Fragment {
         images[2] = BitmapFactory.decodeResource(getResources(), R.drawable.t4_hand_3, options);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_tutorail_4, container, false);
-
-        imageView = (ImageView) rootView.findViewById(R.id.imageView_hand1);
-
+    private void setAnimation() {
         handAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.shake_hand);
         handAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -57,15 +76,15 @@ public class Tutorail4Fragment extends Fragment {
 
                 switch (animationIdx) {
                     case 1:
-                        imageView.setImageBitmap(images[1]);
+                        iv_hand.setImageBitmap(images[1]);
                         animationIdx = 2;
                         break;
                     case 2:
-                        imageView.setImageBitmap(images[2]);
+                        iv_hand.setImageBitmap(images[2]);
                         animationIdx = 3;
                         break;
                     case 3:
-                        imageView.setImageBitmap(images[0]);
+                        iv_hand.setImageBitmap(images[0]);
                         animationIdx = 1;
                         break;
                 }
@@ -73,7 +92,7 @@ public class Tutorail4Fragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        imageView.startAnimation(handAnimation);
+                        iv_hand.startAnimation(handAnimation);
                     }
                 }, 10);
             }
@@ -84,11 +103,6 @@ public class Tutorail4Fragment extends Fragment {
             }
 
         });
-        // animation delete
-        //imageView.startAnimation(handAnimation);
-
-        return rootView;
-
     }
 
 }

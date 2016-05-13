@@ -149,6 +149,18 @@
         android:background="@drawable/btn_register"
         android:layout_below="@+id/editText_register_pwAgain"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:clickable="false"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_register_info"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
 </RelativeLayout>

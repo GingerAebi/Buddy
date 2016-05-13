@@ -3,28 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tutorial.Tutorail2Fragment"
-    android:background="@drawable/t2_bg">
+    tools:context=".tutorial.Tutorial2Fragment"
+    android:id="@+id/tutorail2_background">
 
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/imageView_tutorial2_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="20dp" />
+
+    <ImageView
+        android:id="@+id/imageView_tutorail2_nihao"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:paddingLeft="20dp"
-        android:src="@drawable/t2_nihao" />
+        android:paddingLeft="20dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView10"
-        android:layout_centerHorizontal="true"
         android:text="한국에 오신 것을 환영합니다"
         android:textColor="@color/buddyThemeColor"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView_tutorail2_nihao"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

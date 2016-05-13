@@ -19,10 +19,10 @@ public class TutorialActivity extends FragmentActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager_tutorial);
         mPageAdapter = new PagerAdapter(getSupportFragmentManager());
-        mPageAdapter.addFragement(new Tutorail2Fragment());
-        mPageAdapter.addFragement(new Tutorail3Fragment());
-        mPageAdapter.addFragement(new Tutorail4Fragment());
-        mPageAdapter.addFragement(new Tutorail5Fragment());
+        mPageAdapter.addFragement(new Tutorial2Fragment());
+        mPageAdapter.addFragement(new Tutorial3Fragment());
+        mPageAdapter.addFragement(new Tutorial4Fragment());
+        mPageAdapter.addFragement(new Tutorial5Fragment());
 
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
         mViewPager.setAdapter(mPageAdapter);
