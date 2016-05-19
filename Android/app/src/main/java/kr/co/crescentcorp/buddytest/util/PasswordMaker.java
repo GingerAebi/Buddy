@@ -1,4 +1,4 @@
-package kr.co.crescentcorp.buddytest.register;
+package kr.co.crescentcorp.buddytest.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,10 +1,5 @@
 package kr.co.crescentcorp.buddytest.register;
 
-import android.util.Log;
-
-/**
- * Created by JaeBong on 2016-04-17.
- */
 public class RegisterController {
 
     public boolean emailCheck;

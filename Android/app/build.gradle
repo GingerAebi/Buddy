@@ -26,12 +26,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'me.relex:circleindicator:1.1.8@aar'
+    compile 'com.github.nkzawa:socket.io-client:0.3.0'
     compile 'com.pacioianu.david:ink-page-indicator:1.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
     compile 'com.jakewharton:butterknife:8.0.1'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
     compile files('libs/libammsdk.jar')
 }

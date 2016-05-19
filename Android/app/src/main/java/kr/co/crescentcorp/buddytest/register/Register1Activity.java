@@ -13,16 +13,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.crescentcorp.buddytest.R;
-import kr.co.crescentcorp.buddytest.login.LoginActivity;
 import kr.co.crescentcorp.buddytest.netowrk.Network;
-import kr.co.crescentcorp.buddytest.netowrk.RegisterProxy;
+import kr.co.crescentcorp.buddytest.netowrk.UserProxy;
+import kr.co.crescentcorp.buddytest.util.PasswordMaker;
 import kr.co.crescentcorp.buddytest.vo.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +54,8 @@ public class Register1Activity extends AppCompatActivity {
 
     @BindView(R.id.textView_register_info)
     TextView tv_info;
+
+    User user;
 
     private RegisterController registerController;
 
@@ -174,21 +173,27 @@ public class Register1Activity extends AppCompatActivity {
     }
 
     @OnClick(R.id.imageButton_register_next)
+    void moveToNext() {
+        user = getUser();
+        register();
+    }
+
     void register() {
-        Network network = new Network();
+        Network network = Network.getNetworkInstance();
         try {
-            RegisterProxy registerProxy = network.getRegisterProxy();
-            registerProxy.registerUser(getUser(), new Callback<String>() {
+            UserProxy userProxy = network.getUserProxy();
+            userProxy.registerUser(user, new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
                     if(response.isSuccessful()) {
-                        Log.i("RegisterProxy", "Network Success And " + response.body());
+                        Log.i("UserProxy", "Network Success And " + response.body());
                         handleResponse(response.body());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("TEST","FAIL!!!" + t);
                 }
             });
         } catch (Exception e) {
@@ -206,9 +211,10 @@ public class Register1Activity extends AppCompatActivity {
         if (response.equals("Email Already EXIST")) {
             tv_info.setText("!!! 이미 존재하는 이메일 입니다 !!!");
         } else if (response.equals("Create User Success")) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(this, Register2Activity.class);
+            intent.putExtra("User", user);
             startActivity(intent);
+            finish();
         } else {
             tv_info.setText("알 수 없는 응답");
         }
