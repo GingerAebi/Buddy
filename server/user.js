@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router();
 var db = require('./database');
+var router = express.Router();
+
 router.post('/create', function(req, res) {
 	
 	req.accepts('application/json');
@@ -14,6 +15,7 @@ router.post('/create', function(req, res) {
 		req.body.userType
 	]
 	console.log(userInfo);
+
 	db.get().query('SELECT * FROM user WHERE email = ?', req.body.email, function(err, result){	
 		if(err) {
 			console.log(err);
@@ -22,7 +24,8 @@ router.post('/create', function(req, res) {
 			insertUser(userInfo, res)
 			return;
 		}else {
-			res.send("Email Already EXIST");
+			var responseJson = "Email Already Exist";
+			res.send(JSON.stringify(responseJson));
 		}
 	});
 });
@@ -34,7 +37,10 @@ function insertUser(userInfo, res) {
 		}else {
 			console.log(result);
 			makeDetail(result.insertId);
-			res.send("Create User Success");
+			var responseJson = 	"Create User Success" ;
+			
+			var jsonString = JSON.stringify(responseJson);
+			res.status(200).send(jsonString);
 		}
 		
 	});
@@ -78,16 +84,15 @@ router.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
 	db.get().query('SELECT * FROM user WHERE email = ?', email, function(err, result){
-	//err don't catch TYPE ERROR ? 
 		if(err) {
 			console.log(err);
 		} else if(result.length < 1) {
 			res.send("NO EMAIL EXIST");
 		} else {
 			if (password === result[0].password) {
-				res.send("login Success");
+				res.send(JSON.stringify("Login_Success"));
 			}else {
-				res.send("Wrong Password");
+				res.send(JSON.stringify("Wrong Password"));
 			}
 
 		}
