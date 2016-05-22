@@ -20,6 +20,7 @@ USE `crescent` ;
 DROP TABLE IF EXISTS `crescent`.`client`;
 DROP TABLE IF EXISTS `crescent`.`buddy`;
 DROP TABLE IF EXISTS `crescent`.`user`;
+DROP TABLE IF EXISTS `crescent`.`session`;
 -- -----------------------------------------------------
 -- Table `crescent`.`client`
 -- -----------------------------------------------------
@@ -63,8 +64,16 @@ CREATE TABLE IF NOT EXISTS `crescent`.`user`(
 	`picUrl` TEXT NULL,
 	PRIMARY KEY (`_id`))
 ENGINE = InnoDB;
- 
+-- ------------------------------------------------------
+-- Table `crescent`.`session` 
+-- ------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `crescent`.`session`(
+	`_id` INT NOT NULL AUTO_INCREMENT,
+	`key` TEXT NOT NULL,
+	`userId` INT NOT NULL,
+	PRIMARY KEY (`_id`))
+ENGINE = InnoDB;
 
 
 

@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('./database');
+var uuid = require('node-uuid');
 var router = express.Router();
 
 router.post('/create', function(req, res) {
@@ -87,10 +88,11 @@ router.post('/login', function(req, res) {
 		if(err) {
 			console.log(err);
 		} else if(result.length < 1) {
-			res.send("NO EMAIL EXIST");
+			res.send(JSON.stringify("NO EMAIL EXIST"));
 		} else {
 			if (password === result[0].password) {
-				res.send(JSON.stringify("Login_Success"));
+				var session = makeSession(result[0]._id);
+				res.send(JSON.stringify(["Login_Success", session]));
 			}else {
 				res.send(JSON.stringify("Wrong Password"));
 			}
@@ -99,4 +101,22 @@ router.post('/login', function(req, res) {
 	});		
 });
 
+function  makeSession(id) {
+	var sessionKey = uuid.v1();
+	var insert = [sessionKey, id];
+	db.get().query('INSERT INTO session(session, userId) VALUES(?, ?) ',insert,function(err,result){
+		if(!err){	
+			return sessionKey;
+		}else {
+			return err;
+		}		
+	});		
+}
+
+
+
 module.exports = router;
+
+
+
+
