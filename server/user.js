@@ -92,7 +92,7 @@ router.post('/login', function(req, res) {
 		} else {
 			if (password === result[0].password) {
 				var sessionKey = uuid.v1();
-				var insert = [sessionKey, result[0].id];
+				var insert = [sessionKey, result[0]._id];
 				db.get().query('INSERT INTO session(sessionKey, userId) VALUES(?, ?) ',insert,function(err,result){
 					if(err){
 							console.log(err);
@@ -113,31 +113,24 @@ router.post('/login', function(req, res) {
 	});
 });
 
-function  makeSession(id) {
-
-}
 
 
-router.post('/sessionLogin',function(res, req) {
+router.post('/sessionLogin',function(req, res) {
 	var sessionKey = req.body.sessionKey;
 
 	db.get().query('SELECT userId FROM session WHERE sessionKey = ?', sessionKey, function(err, result) {
 		if(err) {
 			console.log(err);
 		}else {
-			res.send(JSON.stringify(findUserById(result[0].userId)));
+			db.get().query('SELECT * FROM user WHERE _id = ?', result[0].userId, function(err, result){
+				if(err) {
+					console.log(err);
+				}else {
+					res.send(JSON.stringify(result[0]));
+				}
+			});
 		}
 	});
 });
-
-function findUserById(userId) {
-	db.get().query('SELECT * FROM user WHERE _id = ?', userId, function(err, result){
-		if(err) {
-			console.log(err);
-		}else {
-			return result[0];
-		}
-	});
-}
 
 module.exports = router;
