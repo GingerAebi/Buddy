@@ -3,6 +3,7 @@ package kr.co.crescentcorp.buddytest.register;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +41,12 @@ public class Register2Activity extends AppCompatActivity {
     @BindView(R.id.imageButton_r2_next)
     ImageButton ib_next;
 
+    @BindView(R.id.imageView_r2_women)
+    ImageView iv_women;
+
+    @BindView(R.id.imageView_r2_man)
+    ImageView iv_man;
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent result) {
         if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
@@ -67,6 +74,8 @@ public class Register2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
         ButterKnife.bind(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         user = (User) getIntent().getSerializableExtra("User");
         Log.i("user", user.toString());
@@ -100,6 +109,15 @@ public class Register2Activity extends AppCompatActivity {
     void selectPicture() {
         Crop.pickImage(this);
     }
+
+
+
+    @OnClick({R.id.imageView_r2_man, R.id.imageView_r2_women})
+    void toggleImage() {
+
+    }
+
+
 
     @OnClick(R.id.imageButton_r2_next)
     void moveToNext() {
