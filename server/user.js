@@ -1,11 +1,13 @@
 var express = require('express');
-var router = express.Router();
 var db = require('./database');
+var uuid = require('node-uuid');
+var router = express.Router();
+
 router.post('/create', function(req, res) {
-	
+
 	req.accepts('application/json');
 	console.log(req.body);
-	
+
 	var userInfo = [
 		req.body.lastName,
 		req.body.firstName,
@@ -14,7 +16,8 @@ router.post('/create', function(req, res) {
 		req.body.userType
 	]
 	console.log(userInfo);
-	db.get().query('SELECT * FROM user WHERE email = ?', req.body.email, function(err, result){	
+
+	db.get().query('SELECT * FROM user WHERE email = ?', req.body.email, function(err, result){
 		if(err) {
 			console.log(err);
 			res.send(err);
@@ -22,7 +25,8 @@ router.post('/create', function(req, res) {
 			insertUser(userInfo, res)
 			return;
 		}else {
-			res.send("Email Already EXIST");
+			var responseJson = "Email Already Exist";
+			res.send(JSON.stringify(responseJson));
 		}
 	});
 });
@@ -34,9 +38,12 @@ function insertUser(userInfo, res) {
 		}else {
 			console.log(result);
 			makeDetail(result.insertId);
-			res.send("Create User Success");
+			var responseJson = 	"Create User Success" ;
+
+			var jsonString = JSON.stringify(responseJson);
+			res.status(200).send(jsonString);
 		}
-		
+
 	});
 }
 
@@ -50,11 +57,11 @@ function makeDetail(id) {
 			} else {
 				makeBuddy(id);
 			}
-		}	
+		}
 	});
 }
 
-function makeClient(id) { 
+function makeClient(id) {
 	db.get().query('INSERT INTO client(userId) VALUES(?)', id, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -78,20 +85,52 @@ router.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
 	db.get().query('SELECT * FROM user WHERE email = ?', email, function(err, result){
-	//err don't catch TYPE ERROR ? 
 		if(err) {
 			console.log(err);
 		} else if(result.length < 1) {
-			res.send("NO EMAIL EXIST");
+			res.send(JSON.stringify("NO EMAIL EXIST"));
 		} else {
 			if (password === result[0].password) {
-				res.send("login Success");
+				var sessionKey = uuid.v1();
+				var insert = [sessionKey, result[0]._id];
+				db.get().query('INSERT INTO session(sessionKey, userId) VALUES(?, ?) ',insert,function(err,result){
+					if(err){
+							console.log(err);
+						}else {
+							console.log(sessionKey);
+							var responseBody = {
+								status : "Login_Success",
+								sessionKey : sessionKey
+							}
+							res.send(JSON.stringify(responseBody));
+						}
+				});
 			}else {
-				res.send("Wrong Password");
+				res.send(JSON.stringify("Wrong Password"));
 			}
 
 		}
-	});		
+	});
+});
+
+
+
+router.post('/sessionLogin',function(req, res) {
+	var sessionKey = req.body.sessionKey;
+
+	db.get().query('SELECT userId FROM session WHERE sessionKey = ?', sessionKey, function(err, result) {
+		if(err) {
+			console.log(err);
+		}else {
+			db.get().query('SELECT * FROM user WHERE _id = ?', result[0].userId, function(err, result){
+				if(err) {
+					console.log(err);
+				}else {
+					res.send(JSON.stringify(result[0]));
+				}
+			});
+		}
+	});
 });
 
 module.exports = router;

@@ -19,6 +19,9 @@ public interface UserService {
 
     @FormUrlEncoded
     @POST("/user/login")
-    public Call<String> login(@Field("email") String email, @Field("password") String password);
+    public Call<LoginResponse> login(@Field("email") String email, @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("/user/sessionLogin")
+    public Call<User> loginBySession(@Field("sessionKey") String sessionKey);
 }

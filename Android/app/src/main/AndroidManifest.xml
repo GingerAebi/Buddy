@@ -14,15 +14,15 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".tutorial.TutorialActivity" />
-        <activity android:name=".tutorial.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".tutorial.StartActivity">
+
         </activity>
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".register.Register1Activity">
