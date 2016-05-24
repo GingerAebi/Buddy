@@ -70,7 +70,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `crescent`.`session`(
 	`_id` INT NOT NULL AUTO_INCREMENT,
-	`key` TEXT NOT NULL,
+	`sessionKey` TEXT NOT NULL,
 	`userId` INT NOT NULL,
 	PRIMARY KEY (`_id`))
 ENGINE = InnoDB;

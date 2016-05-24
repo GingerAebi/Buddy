@@ -91,8 +91,14 @@ router.post('/login', function(req, res) {
 			res.send(JSON.stringify("NO EMAIL EXIST"));
 		} else {
 			if (password === result[0].password) {
-				var session = makeSession(result[0]._id);
-				res.send(JSON.stringify(["Login_Success", session]));
+				var aaa = makeSession(result[0]._id);
+				console.log("session Key : " + aaa);
+				var responseBody = {
+					status : "Login_Success",
+					sessionKey : this.aaa
+				}
+				console.log(responseBody);
+				res.send(JSON.stringify(responseBody));
 			}else {
 				res.send(JSON.stringify("Wrong Password"));
 			}
@@ -104,19 +110,38 @@ router.post('/login', function(req, res) {
 function  makeSession(id) {
 	var sessionKey = uuid.v1();
 	var insert = [sessionKey, id];
-	db.get().query('INSERT INTO session(session, userId) VALUES(?, ?) ',insert,function(err,result){
-		if(!err){	
-			return sessionKey;
-		}else {
+	db.get().query('INSERT INTO session(sessionKey, userId) VALUES(?, ?) ',insert,function(err,result){
+		if(err){	
+			console.log(err);
 			return err;
+		}else {
+			console.log(sessionKey);
+			return sessionKey;
 		}		
 	});		
 }
 
 
+router.post('/sessionLogin',function(res, req) {
+	var sessionKey = req.body.sessionKey;
+
+	db.get().query('SELECT userId FROM session WHERE sessionKey = ?', sessionKey, function(err, result) {
+		if(err) {
+			console.log(err);
+		}else {
+			res.send(JSON.stringify(findUserById(result[0].userId)));
+		}
+	});	
+});
+
+function findUserById(userId) {
+	db.get().query('SELECT * FROM user WHERE _id = ?', userId, function(err, result){
+		if(err) {
+			console.log(err);
+		}else {
+			return result[0];
+		}
+	});
+}
 
 module.exports = router;
-
-
-
-
