@@ -4,10 +4,10 @@ var uuid = require('node-uuid');
 var router = express.Router();
 
 router.post('/create', function(req, res) {
-	
+
 	req.accepts('application/json');
 	console.log(req.body);
-	
+
 	var userInfo = [
 		req.body.lastName,
 		req.body.firstName,
@@ -17,7 +17,7 @@ router.post('/create', function(req, res) {
 	]
 	console.log(userInfo);
 
-	db.get().query('SELECT * FROM user WHERE email = ?', req.body.email, function(err, result){	
+	db.get().query('SELECT * FROM user WHERE email = ?', req.body.email, function(err, result){
 		if(err) {
 			console.log(err);
 			res.send(err);
@@ -39,11 +39,11 @@ function insertUser(userInfo, res) {
 			console.log(result);
 			makeDetail(result.insertId);
 			var responseJson = 	"Create User Success" ;
-			
+
 			var jsonString = JSON.stringify(responseJson);
 			res.status(200).send(jsonString);
 		}
-		
+
 	});
 }
 
@@ -57,11 +57,11 @@ function makeDetail(id) {
 			} else {
 				makeBuddy(id);
 			}
-		}	
+		}
 	});
 }
 
-function makeClient(id) { 
+function makeClient(id) {
 	db.get().query('INSERT INTO client(userId) VALUES(?)', id, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -91,34 +91,30 @@ router.post('/login', function(req, res) {
 			res.send(JSON.stringify("NO EMAIL EXIST"));
 		} else {
 			if (password === result[0].password) {
-				var aaa = makeSession(result[0]._id);
-				console.log("session Key : " + aaa);
-				var responseBody = {
-					status : "Login_Success",
-					sessionKey : this.aaa
-				}
-				console.log(responseBody);
-				res.send(JSON.stringify(responseBody));
+				var sessionKey = uuid.v1();
+				var insert = [sessionKey, result[0].id];
+				db.get().query('INSERT INTO session(sessionKey, userId) VALUES(?, ?) ',insert,function(err,result){
+					if(err){
+							console.log(err);
+						}else {
+							console.log(sessionKey);
+							var responseBody = {
+								status : "Login_Success",
+								sessionKey : sessionKey
+							}
+							res.send(JSON.stringify(responseBody));
+						}
+				});
 			}else {
 				res.send(JSON.stringify("Wrong Password"));
 			}
 
 		}
-	});		
+	});
 });
 
 function  makeSession(id) {
-	var sessionKey = uuid.v1();
-	var insert = [sessionKey, id];
-	db.get().query('INSERT INTO session(sessionKey, userId) VALUES(?, ?) ',insert,function(err,result){
-		if(err){	
-			console.log(err);
-			return err;
-		}else {
-			console.log(sessionKey);
-			return sessionKey;
-		}		
-	});		
+
 }
 
 
@@ -131,7 +127,7 @@ router.post('/sessionLogin',function(res, req) {
 		}else {
 			res.send(JSON.stringify(findUserById(result[0].userId)));
 		}
-	});	
+	});
 });
 
 function findUserById(userId) {
