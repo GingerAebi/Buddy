@@ -23,11 +23,15 @@ public class UserProxy {
 
     }
 
-    public void login(User user, Callback<String> callback) throws IOException {
-        Call<String> call = service.login(user.email, user.password);
+    public void login(User user, Callback<LoginResponse> callback) throws IOException {
+        Call<LoginResponse> call = service.login(user.email, user.password);
         call.enqueue(callback);
     }
 
+    public void loginBySession(String sessionKey, Callback<User> callback) throws IOException {
+        Call<User> call = service.loginBySession(sessionKey);
+        call.enqueue(callback);
+    }
 
 
 }

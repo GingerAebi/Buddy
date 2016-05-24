@@ -1,6 +1,7 @@
 package kr.co.crescentcorp.buddytest.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.co.crescentcorp.buddytest.findbuddy.FindBuddyActivity;
 import kr.co.crescentcorp.buddytest.R;
+import kr.co.crescentcorp.buddytest.netowrk.LoginResponse;
 import kr.co.crescentcorp.buddytest.netowrk.Network;
 import kr.co.crescentcorp.buddytest.register.Register1Activity;
 import kr.co.crescentcorp.buddytest.util.PasswordMaker;
@@ -40,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         network = Network.getNetworkInstance();
+
+
+
     }
 
     @OnClick(R.id.imageButton_login)
@@ -47,16 +52,17 @@ public class LoginActivity extends AppCompatActivity {
         user = new User(et_email.getText().toString(), PasswordMaker.make(et_password.getText().toString()));
 
         try {
-            network.getUserProxy().login(user, new Callback<String>() {
+            network.getUserProxy().login(user, new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
-                        handleResponse(response.body());
+                        LoginResponse loginResponse = response.body();
+                        handleResponse(loginResponse,user);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
 
                 }
             });
@@ -66,16 +72,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void handleResponse(String responseBody) {
-        Log.i("login", responseBody);
+    public void handleResponse(LoginResponse loginResponse, User user) {
+        String responseBody = loginResponse.getStatus();
         if (responseBody.equals("Login_Success")) {
-            Log.i("login", responseBody);
+
+            saveSessionKey(loginResponse.getSessionKey());
+
             Intent intent = new Intent(this, FindBuddyActivity.class);
+            intent.putExtra("User",user);
             startActivity(intent);
 
         } else {
             Log.i("login", "" + responseBody.equals("Login_Success"));
         }
+    }
+
+    public void saveSessionKey(String sessionKey) {
+        SharedPreferences preferences = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("SessionKey", sessionKey);
+        editor.commit();
+        Log.i("LoginActivity","SessionKey : " + sessionKey);
+
     }
 
 
